@@ -8,8 +8,9 @@ import software.amazon.awscdk.services.ecs.patterns.ApplicationLoadBalancedFarga
 import software.amazon.awscdk.services.ecs.patterns.ApplicationLoadBalancedTaskImageOptions;
 import software.amazon.awscdk.services.logs.LogGroup;
 import software.constructs.Construct;
-// import software.amazon.awscdk.Duration;
-// import software.amazon.awscdk.services.sqs.Queue;
+
+import static software.amazon.awscdk.services.ecs.HealthCheck.*;
+
 
 public class Service01Stack extends Stack {
     public Service01Stack(final Construct scope, final String id, Cluster cluster) {
@@ -41,6 +42,13 @@ public class Service01Stack extends Stack {
                                 .build())
                 .publicLoadBalancer(true)
                 .build();
+
+//        service01.getTargetGroup().configureHealthCheck(HealthCheck.builder()
+//                .path("/actuator/health")
+//                .port("8080")
+//                .healthyHttpCodes("200")
+//                .build());
+
 
     }
 }
