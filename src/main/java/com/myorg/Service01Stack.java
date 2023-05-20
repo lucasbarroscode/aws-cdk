@@ -3,13 +3,15 @@ package com.myorg;
 import software.amazon.awscdk.RemovalPolicy;
 import software.amazon.awscdk.Stack;
 import software.amazon.awscdk.StackProps;
-import software.amazon.awscdk.services.ecs.*;
 import software.amazon.awscdk.services.ecs.patterns.ApplicationLoadBalancedFargateService;
 import software.amazon.awscdk.services.ecs.patterns.ApplicationLoadBalancedTaskImageOptions;
 import software.amazon.awscdk.services.logs.LogGroup;
 import software.constructs.Construct;
-
-import static software.amazon.awscdk.services.ecs.HealthCheck.*;
+import software.amazon.awscdk.services.ecs.AwsLogDriverProps;
+import software.amazon.awscdk.services.ecs.Cluster;
+import software.amazon.awscdk.services.ecs.ContainerImage;
+import software.amazon.awscdk.services.ecs.LogDriver;
+import software.amazon.awscdk.services.elasticloadbalancingv2.HealthCheck;
 
 
 public class Service01Stack extends Stack {
@@ -43,11 +45,11 @@ public class Service01Stack extends Stack {
                 .publicLoadBalancer(true)
                 .build();
 
-//        service01.getTargetGroup().configureHealthCheck(HealthCheck.builder()
-//                .path("/actuator/health")
-//                .port("8080")
-//                .healthyHttpCodes("200")
-//                .build());
+        service01.getTargetGroup().configureHealthCheck(HealthCheck.builder()
+                .path("/actuator/health")
+                .port("8080")
+                .healthyHttpCodes("200")
+                .build());
 
 
     }
